@@ -1,0 +1,46 @@
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User{
+  id String @id @default(uuid())
+  name String @db.VarChar(100)
+  email String @unique 
+  password String @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  checkIns CheckIn[]
+  @@map("users")
+}
+
+model Gym{
+  id String @id @default(uuid())
+  name String @db.VarChar(100)
+  description String @db.Text
+  latitude Float
+  longitude Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  checkIns CheckIn[]
+  @@map("gyms")
+}
+
+
+model CheckIn{
+  id String @id @default(uuid())
+  user_id String
+  gym_id String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  gymId Gym @relation(fields: [gym_id], references: [id])
+  userId User @relation(fields: [user_id], references: [id])
+  @@map("check_ins")
+}
