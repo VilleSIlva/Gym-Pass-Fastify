@@ -1,7 +1,7 @@
-import {hash} from "bcrypt"
-import type { User } from "@prisma/client";
-import type { IUserRepository } from "repositories/interfaces/users.interfaces";
+import type { IUserRepository } from "repositories/interfaces/users.interface";
 import { UserAlreadyExistsError } from "./errors/userAlreadyExistsError";
+import type { User } from "@prisma/client";
+import {hash} from "bcrypt"
 
 
 interface RegisterServiceRequest{
