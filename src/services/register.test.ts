@@ -36,7 +36,7 @@ describe("Test register service",()=>{
             password: "12345678"
         })
 
-        expect(async()=>{
+        await expect(async()=>{
             await sut.execute({
                 name: "John Doe",
                 email,

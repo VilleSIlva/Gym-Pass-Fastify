@@ -32,4 +32,16 @@ export class UserInMemoryDatabaseRepository implements IUserRepository{
         return user
     }
 
+    async findById(id: string){
+        const user = this.users.find((user)=>{
+            return user.id == id
+        })
+
+        if(!user){
+            return null
+        }
+
+        return user
+    }
+
 }

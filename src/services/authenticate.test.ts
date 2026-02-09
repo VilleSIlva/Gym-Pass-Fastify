@@ -15,7 +15,7 @@ describe("Test authenticate service",()=>{
     })
 
     test("should not be possible authenticate with invalid email", async()=>{
-        expect(async()=>{
+        await expect(async()=>{
             await sut.execute({
                 email: "invalid@email.com",
                 password: "12345678"
@@ -30,11 +30,26 @@ describe("Test authenticate service",()=>{
             password: await hash("12345678",6)
         })
         
-        expect(async()=>{
+        await expect(async()=>{
             await sut.execute({
                 email: "john.doe@example.com",
                 password: "invalid_password"
             })
         }).rejects.toBeInstanceOf(InvalidCredentialsError)
+    })
+
+    test("should be possible authenticate user successfully", async()=>{
+        await userRepository.create({
+            name: "John Doe",
+            email: "john.doe@example.com",
+            password: await hash("12345678",6)
+        })
+        
+        const {user} = await sut.execute({
+            email: "john.doe@example.com",
+            password: "12345678"
+        })
+
+        expect(user.email).toEqual("john.doe@example.com")
     })
 })

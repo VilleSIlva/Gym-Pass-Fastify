@@ -8,10 +8,13 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/users/authenticate
+POST http://localhost:3000/users/session
 Content-Type: application/json
 
 {
     "email": "john.doe@example.com",
     "password": "12345678"
 }
+
+###
+GET http://localhost:3000/users/profile/3eb2fb7c-ffd3-4f1f-a192-5de7142af25c
